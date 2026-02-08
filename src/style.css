@@ -235,9 +235,10 @@ header h1 .accent {
 
 .counter-label {
   font-size: 0.7rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  margin-top: 12px;
   margin-bottom: 4px;
 }
 

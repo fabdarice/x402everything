@@ -401,18 +401,28 @@ footer {
 
 /* === Responsive === */
 @media (max-width: 768px) {
+  header {
+    text-align: center;
+  }
+
   header h1 {
     font-size: 1.6rem;
+    text-align: center;
   }
 
   .tagline {
     font-size: 0.8rem;
+    justify-content: center;
   }
 
   .crosswalk-container {
     flex-direction: column;
     padding: 8px;
     max-height: none;
+  }
+
+  #robot-lane {
+    order: -1;
   }
 
   .lane {

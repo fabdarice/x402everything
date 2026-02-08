@@ -167,7 +167,7 @@ function buildPage(): void {
         <div class="lane" id="robot-lane">
           <div class="lane-header">
             <span class="lane-icon">&#x1F916;</span>
-            <span class="lane-title">x402 Agentic Payments</span>
+            <span class="lane-title">Agentic Payments</span>
           </div>
           <div class="canvas-wrapper">
             <canvas id="robot-canvas"></canvas>

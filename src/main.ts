@@ -132,7 +132,7 @@ function buildPage(): void {
   document.body.innerHTML = `
     <div id="app">
       <header>
-        <h1>x402 <span class="accent">Everything</span></h1>
+        <h1>x402<span class="accent">Everything</span></h1>
         <p class="tagline">Autonomous agents deserve autonomous payments</p>
       </header>
 

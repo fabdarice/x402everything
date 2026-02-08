@@ -77,7 +77,7 @@ export function formatUSDC(rawAmount: number): string {
 export function formatNumber(n: number): string {
   if (n >= 1_000_000_000) return `${(n / 1_000_000_000).toFixed(1)}B`;
   if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
-  if (n >= 1_000) return n.toLocaleString('en-US');
-  if (n >= 1) return n.toFixed(1);
+  if (n >= 1_000) return Math.round(n).toLocaleString('en-US');
+  if (n >= 1) return Math.round(n).toString();
   return n.toFixed(2);
 }

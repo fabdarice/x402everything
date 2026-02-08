@@ -41,7 +41,7 @@ const counterState = {
 // --- Format per-second for display ---
 function formatPerSecond(n: number): string {
   if (n >= 10000) return `~${formatNumber(n)}`;
-  if (n >= 1) return n.toFixed(1);
+  if (n >= 1) return Math.round(n).toString();
   return n.toFixed(2);
 }
 

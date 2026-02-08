@@ -1,0 +1,11 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/api/trpc/:path*",
+      "destination": "https://www.x402scan.com/api/trpc/:path*"
+    }
+  ]
+}

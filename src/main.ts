@@ -5,7 +5,6 @@ import {
   formatUSDC,
   formatNumber,
   HUMAN_PAYMENTS_PER_SECOND,
-  HUMAN_PAYMENTS_PER_DAY,
 } from './api';
 // Growth section hidden for now - uncomment to re-enable
 // import { milestones, calculateGrowth, formatGrowth } from './milestones';
@@ -39,21 +38,17 @@ const counterState = {
 };
 
 // --- Format per-second for display ---
-function formatPerSecond(n: number): string {
+function formatPerSecond(n: number, round = false): string {
   if (n >= 10000) return `~${formatNumber(n)}`;
-  if (n >= 1) return Math.round(n).toString();
+  if (n >= 1) return round ? Math.round(n).toString() : n.toFixed(1);
   return n.toFixed(2);
 }
 
 // --- Update DOM with current state ---
 function updateDOM(): void {
   // Per-second rates
-  $('human-rate').textContent = `${formatPerSecond(state.humanPerSecond)} payments/sec`;
+  $('human-rate').textContent = `${formatPerSecond(state.humanPerSecond, true)} payments/sec`;
   $('robot-rate').textContent = `${formatPerSecond(state.robotPerSecond)} payments/sec`;
-
-  // Per-day totals
-  $('human-daily').textContent = `${formatNumber(HUMAN_PAYMENTS_PER_DAY)}/day`;
-  $('robot-daily').textContent = `${formatNumber(state.totalX402Transactions)}/day`;
 
   // Stats bar
   $('stat-transactions').textContent = formatNumber(state.totalX402Transactions);
@@ -158,7 +153,6 @@ function buildPage(): void {
           </div>
           <div class="lane-stats">
             <div class="rate-display" id="human-rate">Loading...</div>
-            <div class="daily-display" id="human-daily">—</div>
             <div class="counter-label">Payments since you opened this page</div>
             <div class="live-counter" id="human-counter">0</div>
           </div>
@@ -174,7 +168,6 @@ function buildPage(): void {
           </div>
           <div class="lane-stats">
             <div class="rate-display robot-glow" id="robot-rate">Loading...</div>
-            <div class="daily-display" id="robot-daily">—</div>
             <div class="counter-label">Payments since you opened this page</div>
             <div class="live-counter robot-glow" id="robot-counter">0</div>
           </div>

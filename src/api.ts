@@ -3,9 +3,9 @@ import type { OverallStats, FacilitatorsResponse } from './types';
 // Both dev (Vite proxy) and production (Vercel rewrites) proxy /api/trpc → x402scan.com
 const X402_API_BASE = '/api/trpc';
 
-/** Human payments baseline: ~5K/sec */
-export const HUMAN_PAYMENTS_PER_SECOND = 5_000;
-export const HUMAN_PAYMENTS_PER_DAY = HUMAN_PAYMENTS_PER_SECOND * 86400;
+/** Human payments baseline: ~2.5 billion/day */
+export const HUMAN_PAYMENTS_PER_DAY = 2_500_000_000;
+export const HUMAN_PAYMENTS_PER_SECOND = HUMAN_PAYMENTS_PER_DAY / 86400;
 const SECONDS_PER_DAY = 86400;
 
 /**

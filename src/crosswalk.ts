@@ -10,13 +10,24 @@ const ROBOT_CHAR_W = SPRITE_WIDTH * ROBOT_SCALE;  // 32px
 const ROBOT_CHAR_H = SPRITE_HEIGHT * ROBOT_SCALE; // 48px
 const ANIM_FRAME_MS = 150;
 
-// Crosswalk visual constants
-const ROAD_COLOR = '#0D1117';
+// Crosswalk visual constants — tinted per lane type so the two
+// halves read differently even at thumbnail size
+const LANE_THEMES = {
+  human: {
+    road: '#0a101c',
+    sidewalk: '#131b2b',
+    sidewalkEdge: '#22304a',
+    laneDivider: '#1c2942',
+  },
+  robot: {
+    road: '#07120d',
+    sidewalk: '#0e1f16',
+    sidewalkEdge: '#1c3a2a',
+    laneDivider: '#143324',
+  },
+} as const;
 const STRIPE_COLOR = '#FFFFFF';
 const STRIPE_GLOW = 'rgba(255, 255, 255, 0.15)';
-const SIDEWALK_COLOR = '#1A1F2B';
-const SIDEWALK_EDGE = '#2D3548';
-const LANE_DIVIDER = '#2A2A3A';
 
 // How many stripes on the zebra crossing
 const STRIPE_COUNT = 6;
@@ -147,21 +158,22 @@ export class CrosswalkRenderer {
     const w = this.canvas.width / (window.devicePixelRatio || 1);
     const h = this.canvas.height / (window.devicePixelRatio || 1);
     const ctx = this.ctx;
+    const theme = LANE_THEMES[this.type];
 
     // Road
-    ctx.fillStyle = ROAD_COLOR;
+    ctx.fillStyle = theme.road;
     ctx.fillRect(0, 0, w, h);
 
     // Top sidewalk
-    ctx.fillStyle = SIDEWALK_COLOR;
+    ctx.fillStyle = theme.sidewalk;
     ctx.fillRect(0, 0, w, this.topSidewalkEnd);
-    ctx.fillStyle = SIDEWALK_EDGE;
+    ctx.fillStyle = theme.sidewalkEdge;
     ctx.fillRect(0, this.topSidewalkEnd - 2, w, 3);
 
     // Bottom sidewalk
-    ctx.fillStyle = SIDEWALK_COLOR;
+    ctx.fillStyle = theme.sidewalk;
     ctx.fillRect(0, this.bottomSidewalkStart, w, h - this.bottomSidewalkStart);
-    ctx.fillStyle = SIDEWALK_EDGE;
+    ctx.fillStyle = theme.sidewalkEdge;
     ctx.fillRect(0, this.bottomSidewalkStart, w, 3);
 
     // Zebra crossing stripes (horizontal bands across the road)
@@ -184,7 +196,7 @@ export class CrosswalkRenderer {
     }
 
     // Subtle lane divider lines on road edges
-    ctx.fillStyle = LANE_DIVIDER;
+    ctx.fillStyle = theme.laneDivider;
     ctx.fillRect(0, this.crosswalkStart - 1, w, 1);
     ctx.fillRect(0, this.crosswalkEnd, w, 1);
   }

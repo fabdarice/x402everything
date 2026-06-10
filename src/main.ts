@@ -46,9 +46,9 @@ function formatPerSecond(n: number, round = false): string {
 
 // --- Update DOM with current state ---
 function updateDOM(): void {
-  // Per-second rates
-  $('human-rate').textContent = `${formatPerSecond(state.humanPerSecond, true)} payments/sec`;
-  $('robot-rate').textContent = `${formatPerSecond(state.robotPerSecond)} payments/sec`;
+  // Per-second rates (number only; the "/sec" unit lives in the markup)
+  $('human-rate').textContent = formatPerSecond(state.humanPerSecond, true);
+  $('robot-rate').textContent = formatPerSecond(state.robotPerSecond);
 
   // Stats bar
   $('stat-transactions').textContent = formatNumber(state.totalX402Transactions);
@@ -63,7 +63,7 @@ function updateDOM(): void {
     const ratio = Math.round(state.humanPerSecond / state.robotPerSecond);
     $('ratio-number').textContent = ratio.toLocaleString('en-US');
   } else if (!state.isLoading) {
-    $('ratio-number').textContent = 'N/A (no x402 data yet)';
+    $('ratio-number').textContent = '—';
   }
 
   // Loading overlay: use fade-out class so the opacity transition works,
@@ -134,6 +134,7 @@ function buildPage(): void {
       <header>
         <h1>x402<span class="accent">Everything</span></h1>
         <p class="tagline">Autonomous agents deserve autonomous payments</p>
+        <div class="live-pill"><span class="live-dot"></span>LIVE</div>
       </header>
 
       <div id="error-banner" class="hidden"></div>
@@ -142,68 +143,63 @@ function buildPage(): void {
         <p>Fetching live x402 data...</p>
       </div>
 
-      <div class="crosswalk-container">
-        <div class="lane" id="human-lane">
-          <div class="lane-header">
-            <span class="lane-icon">&#x1F6B6;</span>
-            <span class="lane-title">Human Payments</span>
+      <main class="arena">
+        <section class="lane" id="human-lane">
+          <div class="lane-top">
+            <div class="lane-name"><span class="lane-icon">&#x1F6B6;</span>Human Payments</div>
+            <div class="rate">
+              <span class="rate-num" id="human-rate">&mdash;</span>
+              <span class="rate-unit">payments / sec</span>
+            </div>
           </div>
           <div class="canvas-wrapper">
             <canvas id="human-canvas"></canvas>
           </div>
-          <div class="lane-stats">
-            <div class="rate-display" id="human-rate">Loading...</div>
-            <div class="counter-label">Payments since you opened this page</div>
+          <div class="lane-bottom">
+            <div class="counter-label">Since you opened this page</div>
             <div class="live-counter" id="human-counter">0</div>
           </div>
+        </section>
+
+        <div class="divider" aria-hidden="true">
+          <span class="divider-line"></span>
+          <span class="vs-badge">VS</span>
+          <span class="divider-line"></span>
         </div>
 
-        <div class="lane" id="robot-lane">
-          <div class="lane-header">
-            <span class="lane-icon">&#x1F916;</span>
-            <span class="lane-title">Agentic Payments</span>
+        <section class="lane" id="robot-lane">
+          <div class="lane-top">
+            <div class="lane-name"><span class="lane-icon">&#x1F916;</span>Agentic Payments</div>
+            <div class="rate">
+              <span class="rate-num" id="robot-rate">&mdash;</span>
+              <span class="rate-unit">payments / sec</span>
+            </div>
           </div>
           <div class="canvas-wrapper">
             <canvas id="robot-canvas"></canvas>
           </div>
-          <div class="lane-stats">
-            <div class="rate-display robot-glow" id="robot-rate">Loading...</div>
-            <div class="counter-label">Payments since you opened this page</div>
-            <div class="live-counter robot-glow" id="robot-counter">0</div>
+          <div class="lane-bottom">
+            <div class="counter-label">Since you opened this page</div>
+            <div class="live-counter" id="robot-counter">0</div>
           </div>
-        </div>
-      </div>
+        </section>
+      </main>
 
-      <div class="stats-bar">
-        <div class="stat-item">
-          <div class="stat-value" id="stat-transactions">—</div>
-          <div class="stat-label">x402 Txs (24h)</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-value" id="stat-volume">—</div>
-          <div class="stat-label">Volume (24h)</div>
-        </div>
-        <div class="stat-item-group">
-          <div class="stat-item">
-            <div class="stat-value" id="stat-buyers">—</div>
-            <div class="stat-label">Buyers</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-value" id="stat-sellers">—</div>
-            <div class="stat-label">Sellers</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="ratio-bar">
-        <p>For every <strong class="robot-glow">1 agentic payment</strong>, there are approximately
-        <strong class="human-highlight" id="ratio-number">—</strong> human payments</p>
+      <div class="punchline">
+        <p>Humans still make <strong class="ratio-num"><span id="ratio-number">&mdash;</span>&times;</strong> more payments than agents <span class="for-now">&mdash; for now.</span></p>
       </div>
 
       <footer>
+        <div class="stats-line">
+          <span class="stats-tag">x402 &middot; 24h</span>
+          <span class="stat"><b id="stat-transactions">&mdash;</b> payments</span>
+          <span class="stat"><b id="stat-volume">&mdash;</b> volume</span>
+          <span class="stat"><b id="stat-buyers">&mdash;</b> buyers</span>
+          <span class="stat"><b id="stat-sellers">&mdash;</b> sellers</span>
+        </div>
         <p class="built-by">
-          Data from <a href="https://www.x402scan.com" target="_blank" rel="noopener">x402scan.com</a> | 
-          Powered by the <a href="https://www.x402.org" target="_blank" rel="noopener">x402 protocol</a> | 
+          Data from <a href="https://www.x402scan.com" target="_blank" rel="noopener">x402scan.com</a> &middot;
+          Powered by the <a href="https://www.x402.org" target="_blank" rel="noopener">x402 protocol</a> &middot;
           Built by <a href="https://x.com/fabdarice" target="_blank" rel="noopener">fabda</a>
         </p>
       </footer>

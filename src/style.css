@@ -117,19 +117,19 @@ header h1 .accent {
   font-family: var(--font-pixel);
   font-size: 0.65rem;
   letter-spacing: 0.12em;
-  color: #f87171;
-  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: var(--agent);
+  border: 1px solid rgba(0, 255, 133, 0.38);
   border-radius: 999px;
   padding: 5px 12px;
-  background: rgba(239, 68, 68, 0.07);
+  background: rgba(0, 255, 133, 0.08);
 }
 
 .live-dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #ef4444;
-  box-shadow: 0 0 8px rgba(239, 68, 68, 0.8);
+  background: var(--agent);
+  box-shadow: 0 0 8px rgba(0, 255, 133, 0.8);
   animation: pulse-dot 1.6s infinite;
 }
 

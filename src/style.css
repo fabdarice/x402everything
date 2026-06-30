@@ -263,10 +263,11 @@ header h1 .accent {
 }
 
 .rate-num {
-  font-family: var(--font-pixel);
+  font-family: var(--font-mono);
   font-weight: 700;
   font-size: clamp(1.8rem, 4.2vw, 3rem);
   line-height: 1;
+  letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
 }
 
@@ -318,10 +319,11 @@ header h1 .accent {
 }
 
 .live-counter {
-  font-family: var(--font-pixel);
+  font-family: var(--font-mono);
   font-weight: 700;
   font-size: clamp(1.2rem, 2.4vw, 1.8rem);
   line-height: 1;
+  letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
 }
 
@@ -379,12 +381,13 @@ header h1 .accent {
 }
 
 .ratio-num {
-  font-family: var(--font-pixel);
+  font-family: var(--font-mono);
   font-weight: 700;
   font-size: 1.5em;
   color: var(--human);
   text-shadow: var(--glow-human);
   vertical-align: -0.08em;
+  font-variant-numeric: tabular-nums;
   padding: 0 2px;
 }
 

@@ -21,7 +21,7 @@
   --agent-soft: rgba(0, 255, 133, 0.14);
   --glow-agent: 0 0 16px rgba(0, 255, 133, 0.45), 0 0 48px rgba(0, 255, 133, 0.15);
   --glow-human: 0 0 16px rgba(77, 163, 255, 0.45), 0 0 48px rgba(77, 163, 255, 0.15);
-  --font-pixel: 'Silkscreen', monospace;
+  --font-pixel: 'Pixelify Sans', monospace;
   --font-mono: 'IBM Plex Mono', 'SF Mono', monospace;
   font-family: var(--font-mono);
 }
